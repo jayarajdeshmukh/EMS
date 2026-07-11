@@ -1,0 +1,159 @@
+{
+  "employees": [
+    {
+      "name": "Jay Deshmukh",
+      "role": "ReactJs developer",
+      "id": 1,
+      "email": "jayarajdeshmukh2002@gmail.com",
+      "phone": "7896541230",
+      "address": "Pune, India"
+    },
+    {
+      "name": "sudip",
+      "role": "BPharma",
+      "id": 2
+    },
+    {
+      "name": "Akshay",
+      "role": "HR",
+      "email": "akshay@gmail.com",
+      "phone": "8123045620",
+      "address": "Satara",
+      "id": 3
+    },
+    {
+      "name": "Pradip",
+      "role": ".net Developer",
+      "email": "dhanush@gmail.com",
+      "phone": "987451023",
+      "address": "Tamdardi",
+      "id": 4
+    },
+    {
+      "name": "Rahul Jadhav",
+      "role": "Python developer",
+      "email": "jayarajdeshmukh2002@gmail.com",
+      "phone": "8574123690",
+      "address": "Sangola",
+      "id": 5
+    }
+  ],
+  "users": [
+    {
+      "name": "Jay",
+      "email": "jay@gmail.com",
+      "phone": "9874102563",
+      "address": "Umadi",
+      "department": "IT",
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "name": "Sudip Kittad",
+      "email": "sudipkittad@gmail.com",
+      "phone": "8574123690",
+      "address": "Chadchan",
+      "department": "Sales",
+      "password": "123456",
+      "id": 3
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "name": "IT",
+      "code": "IT001",
+      "head": "Rahul Sharma",
+      "employees": 25,
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "name": "HR",
+      "code": "HR001",
+      "head": "Priya Patil",
+      "employees": 10,
+      "status": "Active"
+    },
+    {
+      "id": 3,
+      "name": "Finance",
+      "code": "FIN001",
+      "head": "Amit Joshi",
+      "employees": 15,
+      "status": "Inactive"
+    },
+    {
+      "id": 4,
+      "name": "Sales",
+      "code": "SAL001",
+      "head": "Sujal Shah",
+      "employees": 20,
+      "status": "Active"
+    },
+    {
+      "id": 5,
+      "name": "Marketing",
+      "code": "MKT001",
+      "head": "Sneha More",
+      "employees": 12,
+      "status": "Active"
+    },
+    {
+      "id": 6,
+      "name": "Operations",
+      "code": "OPS001",
+      "head": "Rohit Patil",
+      "employees": 18,
+      "status": "Active"
+    },
+    {
+      "id": 7,
+      "name": "Quality Assurance",
+      "code": "QA001",
+      "head": "Neha Kulkarni",
+      "employees": 14,
+      "status": "Active"
+    },
+    {
+      "id": 8,
+      "name": "Customer Support",
+      "code": "SUP001",
+      "head": "Karan Shah",
+      "employees": 16,
+      "status": "Inactive"
+    }
+  ],
+  "attendance": [
+    {
+      "id": 1,
+      "employeeName": "Rahul Sharma",
+      "department": "IT",
+      "date": "2026-07-09",
+      "checkIn": "09:10 AM",
+      "checkOut": "06:00 PM",
+      "hours": "8h 50m",
+      "status": "Present"
+    },
+    {
+      "id": 2,
+      "employeeName": "Priya Patil",
+      "department": "HR",
+      "date": "2026-07-09",
+      "checkIn": "-",
+      "checkOut": "-",
+      "hours": "0h",
+      "status": "Absent"
+    },
+    {
+      "id": 3,
+      "employeeName": "Amit Joshi",
+      "department": "Finance",
+      "date": "2026-07-09",
+      "checkIn": "10:00 AM",
+      "checkOut": "06:30 PM",
+      "hours": "8h 30m",
+      "status": "Late"
+    }
+  ]
+}
