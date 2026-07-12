@@ -1,10 +1,13 @@
-import api from "./axiosInstance"; 
+import axios from "axios";
+
+const API_URL =
+  "https://ems-backend-du9p.onrender.com/attendance";
 
 export const getAttendance = async () => {
-    const res = await api.get("/attendance"); // Added endpoint path
-    return res.data;
+  const res = await axios.get(API_URL);
+  return res.data;
 };
 
 export const deleteAttendance = async (id) => {
-    await api.delete(`/attendance/${id}`); // Added endpoint path
+  await axios.delete(`${API_URL}/${id}`);
 };

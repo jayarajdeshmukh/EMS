@@ -77,7 +77,7 @@ function ChangePassword(){
 
       await axios.patch(
 
-        `https://ems-backend-1-lhsi.onrender.com/${user.id}`,
+        `https://ems-backend-du9p.onrender.com/${user.id}`,
 
         {
           password:newPassword

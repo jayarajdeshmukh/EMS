@@ -1,29 +1,31 @@
 import api from "./axiosInstance";
 
-// GET ALL USERS
+// GET ALL EMPLOYEES
 export const getEmployees = async () => {
-  const res = await api.get("/users");
-  return res.data.users;
+  const res = await api.get("/employees");
+  return res.data;
 };
 
-// GET SINGLE USER
+// GET SINGLE EMPLOYEE
 export const getEmployeeById = async (id) => {
-  const res = await api.get(`/users/${id}`);
+  const res = await api.get(`/employees/${id}`);
   return res.data;
 };
 
-// DummyJSON simulates these operations (not permanently saved)
-export const addEmployee = async (data) => {
-  const res = await api.post("/users/add", data);
+// ADD EMPLOYEE
+export const addEmployee = async (employee) => {
+  const res = await api.post("/employees", employee);
   return res.data;
 };
 
-export const updateEmployee = async (id, data) => {
-  const res = await api.put(`/users/${id}`, data);
+// UPDATE EMPLOYEE
+export const updateEmployee = async (id, employee) => {
+  const res = await api.put(`/employees/${id}`, employee);
   return res.data;
 };
 
+// DELETE EMPLOYEE
 export const deleteEmployee = async (id) => {
-  const res = await api.delete(`/users/${id}`);
+  const res = await api.delete(`/employees/${id}`);
   return res.data;
 };

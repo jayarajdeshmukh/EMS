@@ -25,7 +25,7 @@ function ViewEmployee() {
 
 
         const response = await axios.get(
-          `https://ems-backend-1-lhsi.onrender.com/${id}`
+          `https://ems-backend-du9p.onrender.com/employees/${id}`
         );
 
 
@@ -73,7 +73,7 @@ function ViewEmployee() {
 
 
         await axios.delete(
-          `https://ems-backend-1-lhsi.onrender.com/${id}`
+          `https://ems-backend-du9p.onrender.com/employees/${id}`
         );
 
 
