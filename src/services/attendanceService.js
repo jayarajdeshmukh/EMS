@@ -1,14 +1,10 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/attendance";
-
+import api from "./axiosInstance"; 
 
 export const getAttendance = async () => {
-    const res = await axios.get(API_URL);
+    const res = await api.get("/attendance"); // Added endpoint path
     return res.data;
 };
 
-
 export const deleteAttendance = async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
+    await api.delete(`/attendance/${id}`); // Added endpoint path
 };

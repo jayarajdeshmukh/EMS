@@ -1,15 +1,11 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/departments";
-
+import api from "./axiosInstance"; 
 
 export const getDepartments = async () => {
-  const res = await axios.get(API_URL);
+  const res = await api.get("/departments"); // Added endpoint path
   return res.data;
 };
 
-
 export const addDepartment = async (department) => {
-  const res = await axios.post(API_URL, department);
+  const res = await api.post("/departments", department); // Added endpoint path
   return res.data;
 };
