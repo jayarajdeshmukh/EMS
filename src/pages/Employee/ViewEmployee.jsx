@@ -25,8 +25,8 @@ function ViewEmployee() {
 
 
         const response = await axios.get(
-          `https://ems-backend-1-lhsi.onrender.com/employees/${id}`
-        );
+  `https://ems-backend-1-lhsi.onrender.com/employees/${id}`
+);
 
 
         setEmployee(response.data);
@@ -73,9 +73,8 @@ function ViewEmployee() {
 
 
         await axios.delete(
-          `https://ems-backend-1-lhsi.onrender.com/employees/${id}`
-        );
-
+  `https://ems-backend-1-lhsi.onrender.com/employees/${id}`
+);
 
 
         alert("Employee deleted successfully");

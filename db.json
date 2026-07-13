@@ -1,41 +1,22 @@
 {
   "employees": [
     {
+      "id": 1,
       "name": "Jay Deshmukh",
       "role": "ReactJs developer",
-      "id": 1,
       "email": "jayarajdeshmukh2002@gmail.com",
+      "password": "123456",
       "phone": "7896541230",
       "address": "Pune, India"
     },
     {
+      "id": 2,
       "name": "sudip",
       "role": "BPharma",
-      "id": 2
-    },
-    {
-      "name": "Akshay",
-      "role": "HR",
-      "email": "akshay@gmail.com",
-      "phone": "8123045620",
-      "address": "Satara",
-      "id": 3
-    },
-    {
-      "name": "Pradip",
-      "role": ".net Developer",
-      "email": "dhanush@gmail.com",
-      "phone": "987451023",
-      "address": "Tamdardi",
-      "id": 4
-    },
-    {
-      "name": "Rahul Jadhav",
-      "role": "Python developer",
-      "email": "jayarajdeshmukh2002@gmail.com",
-      "phone": "8574123690",
-      "address": "Sangola",
-      "id": 5
+      "email": "sudip@gmail.com",
+      "password": "123456",
+      "phone": "9876543210",
+      "address": "Pune"
     }
   ],
   "users": [
