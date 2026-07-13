@@ -43,7 +43,7 @@ try{
 
 
 const response = await axios.get(
-"https://ems-backend-du9p.onrender.com/users"
+"https://ems-backend-1-lhsi.onrender.com/users"
 );
 
 

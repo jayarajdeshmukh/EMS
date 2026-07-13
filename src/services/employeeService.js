@@ -20,7 +20,7 @@ export const addEmployee = async (employee) => {
 
 // UPDATE EMPLOYEE
 export const updateEmployee = async (id, employee) => {
-  const res = await api.put(`/employees/${id}`, employee);
+  const res = await api.patch(`/employees/${id}`, employee);
   return res.data;
 };
 
