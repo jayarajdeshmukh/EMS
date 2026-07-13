@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -79,229 +79,429 @@ const Login = () => {
   setLoading(false);
 
 };
-  return (
+return (
 
-    <div className="
-      min-h-screen
-      flex
-      items-center
-      justify-center
-      bg-gray-100
-      px-4
-    ">
+<div className="
+min-h-screen
+flex
+items-center
+justify-center
+bg-gradient-to-br
+from-gray-950
+via-gray-900
+to-black
+px-4
+">
 
 
-      <div className="
-        w-full
-        max-w-md
-        bg-white
-        rounded-2xl
-        shadow-xl
-        p-8
-      ">
+<div className="
+w-full
+max-w-md
+bg-gray-900
+rounded-3xl
+shadow-2xl
+p-8
+border
+border-gray-700
+">
 
 
-        <div className="flex justify-center mb-6">
+{/* Logo */}
 
-          <div className="
-            h-20
-            w-20
-            rounded-2xl
-            bg-blue-600
-            flex
-            items-center
-            justify-center
-          ">
+<div className="
+flex
+justify-center
+mb-6
+">
 
-            <FaBuilding className="
-              text-white
-              text-4xl
-            "/>
+<div className="
+h-24
+w-24
+rounded-3xl
+bg-gradient-to-br
+from-gray-700
+to-black
+border
+border-gray-600
+flex
+items-center
+justify-center
+shadow-xl
+">
 
-          </div>
 
-        </div>
+<FaBuilding
 
+className="
+text-white
+text-5xl
+"
 
+/>
 
-        <h1 className="
-          text-center
-          text-3xl
-          font-bold
-        ">
-          EMS Portal
-        </h1>
 
+</div>
 
-        <p className="
-          text-center
-          text-gray-500
-          mb-8
-        ">
-          Employee Management System
-        </p>
+</div>
 
 
 
-        <div className="relative mb-5">
 
-          <FaEnvelope className="
-            absolute
-            left-4
-            top-4
-            text-gray-400
-          "/>
 
+<h1
 
-          <input
+className="
+text-center
+text-3xl
+font-bold
+text-white
+"
 
-            type="email"
+>
 
-            placeholder="Email"
+EMS Portal
 
-            value={email}
+</h1>
 
-            onChange={(e)=>setEmail(e.target.value)}
 
-            className="
-              w-full
-              pl-12
-              py-3
-              border
-              rounded-xl
-            "
 
-          />
+<p
 
-        </div>
+className="
+text-center
+text-gray-400
+mt-2
+mb-8
+"
 
+>
 
+Employee Management System
 
-        <div className="relative mb-5">
+</p>
 
 
-          <FaLock className="
-            absolute
-            left-4
-            top-4
-            text-gray-400
-          "/>
 
 
 
-          <input
+{/* Email */}
 
-            type={
-              showPassword
-              ? "text"
-              : "password"
-            }
 
-            placeholder="Password"
+<div className="
+relative
+mb-5
+">
 
-            value={password}
 
-            onChange={(e)=>setPassword(e.target.value)}
+<FaEnvelope
 
-            className="
-              w-full
-              pl-12
-              pr-12
-              py-3
-              border
-              rounded-xl
-            "
+className="
+absolute
+left-4
+top-4
+text-gray-500
+"
 
-          />
+/>
 
 
 
-          <button
+<input
 
-            type="button"
 
-            onClick={()=>
-              setShowPassword(!showPassword)
-            }
+type="email"
 
-            className="
-              absolute
-              right-4
-              top-4
-            "
 
-          >
+placeholder="Enter your email"
 
-            {
-              showPassword
-              ? <FaEyeSlash/>
-              : <FaEye/>
-            }
 
+value={email}
 
-          </button>
 
+onChange={(e)=>setEmail(e.target.value)}
 
-        </div>
 
+className="
+w-full
+pl-12
+py-3
+bg-gray-800
+text-white
+placeholder-gray-500
+border
+border-gray-700
+rounded-xl
+outline-none
+focus:border-gray-400
+focus:ring-2
+focus:ring-gray-600
+transition
+"
 
+/>
 
-        {
-          error &&
 
-          <div className="
-            bg-red-100
-            text-red-600
-            p-3
-            rounded-lg
-            mb-4
-            text-center
-          ">
 
-            {error}
+</div>
 
-          </div>
 
-        }
 
 
 
-        <button
 
-          onClick={handleLogin}
+{/* Password */}
 
-          disabled={loading}
 
-          className="
-            w-full
-            bg-blue-600
-            text-white
-            py-3
-            rounded-xl
-            font-semibold
-          "
 
-        >
+<div className="
+relative
+mb-5
+">
 
-          {
-            loading
-            ? "Authenticating..."
-            : "Sign In"
-          }
 
+<FaLock
 
-        </button>
+className="
+absolute
+left-4
+top-4
+text-gray-500
+"
 
+/>
 
 
-      </div>
 
+<input
 
-    </div>
 
-  );
+type={
+showPassword
+?
+"text"
+:
+"password"
+}
 
-};
 
+placeholder="Enter your password"
 
+
+value={password}
+
+
+onChange={(e)=>setPassword(e.target.value)}
+
+
+className="
+w-full
+pl-12
+pr-12
+py-3
+bg-gray-800
+text-white
+placeholder-gray-500
+border
+border-gray-700
+rounded-xl
+outline-none
+focus:border-gray-400
+focus:ring-2
+focus:ring-gray-600
+transition
+"
+
+/>
+
+
+
+
+<button
+
+type="button"
+
+onClick={()=>
+setShowPassword(!showPassword)
+}
+
+
+className="
+absolute
+right-4
+top-4
+text-gray-400
+hover:text-white
+transition
+"
+
+>
+
+{
+showPassword
+?
+<FaEyeSlash/>
+:
+<FaEye/>
+}
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+{
+error &&
+
+
+<div
+
+className="
+bg-red-900/40
+border
+border-red-700
+text-red-400
+p-3
+rounded-xl
+mb-5
+text-center
+text-sm
+"
+
+>
+
+{error}
+
+</div>
+
+
+}
+
+
+
+
+
+{/* Login Button */}
+
+
+
+<button
+
+
+onClick={handleLogin}
+
+
+disabled={loading}
+
+
+className="
+w-full
+bg-white
+text-black
+py-3
+rounded-xl
+font-semibold
+shadow-lg
+hover:bg-gray-200
+hover:scale-[1.02]
+transition
+duration-300
+disabled:opacity-50
+"
+
+
+>
+
+{
+
+loading
+
+?
+
+"Authenticating..."
+
+:
+
+"Sign In"
+
+}
+
+
+</button>
+
+
+
+
+
+
+{/* Register */}
+
+
+
+<div
+
+className="
+mt-6
+text-center
+"
+
+>
+
+
+<p
+
+className="
+text-gray-400
+text-sm
+"
+
+>
+
+
+Don't have an account?
+
+
+<Link
+
+
+to="/register"
+
+
+className="
+ml-2
+text-white
+font-semibold
+hover:text-gray-300
+underline-offset-4
+hover:underline
+transition
+"
+
+>
+
+Create Account
+
+</Link>
+
+
+</p>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+);
+}
 export default Login;

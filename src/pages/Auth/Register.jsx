@@ -67,7 +67,7 @@ const handleSubmit = async (e) => {
 
     // Check existing users
     const response = await axios.get(
-      "https://ems-backend-du9p.onrender.com/users"
+      "https://ems-backend-1-lhsi.onrender.com/users"
     );
 
     const existingUser = response.data.find(
@@ -81,7 +81,7 @@ const handleSubmit = async (e) => {
 
     // Save new user
     await axios.post(
-      "https://ems-backend-du9p.onrender.com/users",
+      "https://ems-backend-1-lhsi.onrender.com/users",
       formData
     );
 
