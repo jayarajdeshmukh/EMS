@@ -10,112 +10,54 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 
-
 const Login = () => {
+  const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
 
-const navigate = useNavigate();
+  const [password, setPassword] = useState("");
 
+  const [error, setError] = useState("");
 
-const [email,setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-const [password,setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const [error,setError] = useState("");
+  const handleLogin = async () => {
+    setError("");
 
-const [showPassword,setShowPassword] = useState(false);
+    setLoading(true);
 
-const [loading,setLoading] = useState(false);
+    try {
+      const response = await axios.get(
+        "https://ems-backend-1-lhsi.onrender.com/employees",
+      );
 
+      const user = response.data.find(
+        (u) => u.email === email && u.password === password,
+      );
 
+      if (user) {
+        localStorage.setItem("isLoggedIn", "true");
 
+        localStorage.setItem("user", JSON.stringify(user));
 
+        navigate("/dashboard");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      console.log(error);
 
-const handleLogin = async()=>{
+      setError("Server connection failed");
+    }
 
+    setLoading(false);
+  };
 
-setError("");
-
-setLoading(true);
-
-
-try{
-
-
-const response = await axios.get(
-"https://ems-backend-1-lhsi.onrender.com/users"
-);
-
-
-const user = response.data.find(
-(u)=>u.email===email &&
-(u.password===password)
-);
-
-
-
-if(user){
-
-
-localStorage.setItem(
-"isLoggedIn",
-"true"
-);
-
-
-localStorage.setItem(
-"user",
-JSON.stringify(user)
-);
-
-
-
-navigate("/dashboard");
-
-
-}
-
-else{
-
-
-setError(
-"Invalid email or password"
-);
-
-
-}
-
-
-}
-
-catch(error){
-
-console.log(error);
-
-setError(
-"Server connection failed"
-);
-
-
-}
-
-
-setLoading(false);
-
-
-};
-
-
-
-
-
-
-return(
-
-
-<div
-
-className="
+  return (
+    <div
+      className="
 min-h-screen
 flex
 items-center
@@ -130,17 +72,11 @@ px-4
 relative
 overflow-hidden
 "
+    >
+      {/* Background */}
 
->
-
-
-
-
-{/* Background */}
-
-<div
-
-className="
+      <div
+        className="
 absolute
 w-96
 h-96
@@ -151,14 +87,10 @@ opacity-20
 top-0
 left-0
 "
+      ></div>
 
-></div>
-
-
-
-<div
-
-className="
+      <div
+        className="
 absolute
 w-96
 h-96
@@ -169,22 +101,12 @@ opacity-20
 bottom-0
 right-0
 "
+      ></div>
 
-></div>
+      {/* Card */}
 
-
-
-
-
-
-
-
-{/* Card */}
-
-
-<div
-
-className="
+      <div
+        className="
 relative
 
 w-full
@@ -207,31 +129,18 @@ p-6
 sm:p-8
 
 "
+      >
+        {/* Logo */}
 
->
-
-
-
-
-
-
-{/* Logo */}
-
-
-<div
-
-className="
+        <div
+          className="
 flex
 justify-center
 mb-6
 "
-
->
-
-
-<div
-
-className="
+        >
+          <div
+            className="
 h-20
 w-20
 
@@ -248,36 +157,20 @@ justify-center
 shadow-lg
 
 "
-
->
-
-
-<FaBuilding
-
-className="
+          >
+            <FaBuilding
+              className="
 text-white
 text-4xl
 "
+            />
+          </div>
+        </div>
 
-/>
+        {/* Heading */}
 
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-{/* Heading */}
-
-
-<h1
-
-className="
+        <h1
+          className="
 text-center
 text-3xl
 font-bold
@@ -286,18 +179,12 @@ text-gray-800
 dark:text-white
 
 "
+        >
+          EMS Portal
+        </h1>
 
->
-
-EMS Portal
-
-</h1>
-
-
-
-<p
-
-className="
+        <p
+          className="
 text-center
 
 text-gray-500
@@ -307,28 +194,15 @@ mt-2
 mb-8
 
 "
+        >
+          Employee Management System
+        </p>
 
->
+        {/* Email */}
 
-Employee Management System
-
-</p>
-
-
-
-
-
-
-
-{/* Email */}
-
-
-<div className="relative mb-5">
-
-
-<FaEnvelope
-
-className="
+        <div className="relative mb-5">
+          <FaEnvelope
+            className="
 absolute
 left-4
 top-4
@@ -336,23 +210,14 @@ top-4
 text-gray-400
 
 "
+          />
 
-/>
-
-
-<input
-
-
-type="email"
-
-placeholder="Corporate Email"
-
-value={email}
-
-onChange={(e)=>setEmail(e.target.value)}
-
-
-className="
+          <input
+            type="email"
+            placeholder="Corporate Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="
 w-full
 
 pl-12
@@ -380,30 +245,14 @@ focus:ring-blue-500
 transition
 
 "
+          />
+        </div>
 
-/>
+        {/* Password */}
 
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* Password */}
-
-
-<div className="relative mb-5">
-
-
-<FaLock
-
-className="
+        <div className="relative mb-5">
+          <FaLock
+            className="
 absolute
 left-4
 top-4
@@ -411,34 +260,14 @@ top-4
 text-gray-400
 
 "
+          />
 
-/>
-
-
-
-<input
-
-
-type={
-showPassword
-?
-"text"
-:
-"password"
-}
-
-
-placeholder="Password"
-
-
-value={password}
-
-
-onChange={(e)=>setPassword(e.target.value)}
-
-
-
-className="
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="
 w-full
 
 pl-12
@@ -466,19 +295,11 @@ focus:ring-blue-500
 transition
 
 "
+          />
 
-/>
-
-
-
-
-<button
-
-
-onClick={()=>setShowPassword(!showPassword)}
-
-
-className="
+          <button
+            onClick={() => setShowPassword(!showPassword)}
+            className="
 absolute
 right-4
 top-4
@@ -490,51 +311,16 @@ hover:scale-110
 transition
 
 "
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
 
->
+        {/* Error */}
 
-
-{
-
-showPassword
-
-?
-
-<FaEyeSlash/>
-
-:
-
-<FaEye/>
-
-}
-
-
-</button>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-{/* Error */}
-
-
-{
-
-error &&
-
-<div
-
-className="
+        {error && (
+          <div
+            className="
 mb-4
 
 p-3
@@ -550,37 +336,17 @@ text-center
 text-sm
 
 "
+          >
+            {error}
+          </div>
+        )}
 
->
+        {/* Login Button */}
 
-{error}
-
-</div>
-
-
-}
-
-
-
-
-
-
-
-
-
-{/* Login Button */}
-
-
-<button
-
-
-onClick={handleLogin}
-
-
-disabled={loading}
-
-
-className="
+        <button
+          onClick={handleLogin}
+          disabled={loading}
+          className="
 
 w-full
 
@@ -612,42 +378,14 @@ duration-300
 
 
 "
+        >
+          {loading ? "Authenticating..." : "Sign In"}
+        </button>
 
->
+        {/* Register */}
 
-
-{
-
-loading
-
-?
-
-"Authenticating..."
-
-:
-
-"Sign In"
-
-}
-
-
-</button>
-
-
-
-
-
-
-
-
-
-
-{/* Register */}
-
-
-<p
-
-className="
+        <p
+          className="
 text-center
 
 mt-6
@@ -657,19 +395,11 @@ text-gray-600
 dark:text-gray-300
 
 "
-
->
-
-Don't have an account?
-
-
-<span
-
-
-onClick={()=>navigate("/register")}
-
-
-className="
+        >
+          Don't have an account?
+          <span
+            onClick={() => navigate("/register")}
+            className="
 ml-1
 
 text-blue-600
@@ -681,29 +411,15 @@ cursor-pointer
 hover:underline
 
 "
+          >
+            Create Account
+          </span>
+        </p>
 
->
+        {/* Footer */}
 
-Create Account
-
-</span>
-
-
-</p>
-
-
-
-
-
-
-
-
-{/* Footer */}
-
-
-<p
-
-className="
+        <p
+          className="
 text-center
 
 text-xs
@@ -713,27 +429,12 @@ text-gray-400
 mt-8
 
 "
-
->
-
-© 2026 EMS Technologies. All rights reserved.
-
-</p>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-);
-
-
+        >
+          © 2026 EMS Technologies. All rights reserved.
+        </p>
+      </div>
+    </div>
+  );
 };
-
 
 export default Login;
