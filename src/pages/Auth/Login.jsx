@@ -24,44 +24,37 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-  setError("");
+    setError("");
 
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    const response = await axios.get(
-      "https://ems-backend-1-lhsi.onrender.com/employees"
-    );
-
-    console.log("Login API Data:", response.data);
-
-    const user = response.data.find(
-      (u) =>
-        u.email.trim() === email.trim() &&
-        u.password.trim() === password.trim()
-    );
-
-    if (user) {
-      localStorage.setItem("isLoggedIn", "true");
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(user)
+    try {
+      const response = await axios.get(
+        "https://ems-backend-1-lhsi.onrender.com/employees",
       );
 
-      navigate("/dashboard");
-    } else {
-      setError("Invalid email or password");
+      const user = response.data.find(
+        (u) => u.email === email && u.password === password,
+      );
+
+      if (user) {
+        localStorage.setItem("isLoggedIn", "true");
+
+        localStorage.setItem("user", JSON.stringify(user));
+
+        navigate("/dashboard");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      console.log(error);
+
+      setError("Server connection failed");
     }
 
-  } catch (error) {
-    console.log(error);
+    setLoading(false);
+  };
 
-    setError("Server connection failed");
-  }
-
-  setLoading(false);
-};
   return (
     <div
       className="
