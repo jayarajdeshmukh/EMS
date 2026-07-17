@@ -90,7 +90,7 @@ function Employees() {
                   </td>
 
                   <td className="px-6 py-4">
-                    {emp.role}
+                    {emp.jobRole}
                   </td>
 
                   <td className="px-6 py-4">
@@ -134,8 +134,8 @@ function Employees() {
             </div>
 
             <div className="flex justify-between mb-4">
-              <span className="font-semibold">Role</span>
-              <span>{emp.role}</span>
+              <span className="font-semibold">jobRole</span>
+              <span>{emp.jobRole}</span>
             </div>
 
             <ActionButtons

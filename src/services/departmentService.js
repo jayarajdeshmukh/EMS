@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "https://ems-backend-1-lhsi.onrender.com/departments";
+  "http://localhost:8081/departments";
 
 export const getDepartments = async () => {
   const res = await axios.get(API_URL);

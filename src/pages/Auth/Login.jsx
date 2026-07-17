@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/axiosInstance";
 
 import {
   FaEnvelope,
@@ -28,22 +28,19 @@ const Login = () => {
 
   try {
 
-    const response = await axios.get(
-      "https://ems-backend-1-lhsi.onrender.com/users"
-    );
+    const response = await api.post(
+  "/person/login",
+  {
+    email: email,
+    password: password
+  }
+);
 
 
-    console.log("Users API:", response.data);
+    console.log(response.data);
 
 
-    const user = response.data.find(
-      (u) =>
-        u.email.trim() === email.trim() &&
-        u.password.trim() === password.trim()
-    );
-
-
-    if(user){
+    if(response.data){
 
       localStorage.setItem(
         "isLoggedIn",
@@ -53,16 +50,11 @@ const Login = () => {
 
       localStorage.setItem(
         "user",
-        JSON.stringify(user)
+        JSON.stringify(response.data)
       );
 
 
       navigate("/dashboard");
-
-
-    }else{
-
-      setError("Invalid email or password");
 
     }
 
@@ -71,7 +63,7 @@ const Login = () => {
 
     console.log(error);
 
-    setError("Server connection failed");
+    setError("Invalid email or password");
 
   }
 

@@ -77,13 +77,13 @@ function ChangePassword(){
 
       await axios.patch(
 
-        `https://ems-backend-1-lhsi.onrender.com/employees/${user.id}`,
+  `http://localhost:8081/person/password/${user.id}`,
 
-        {
-          password:newPassword
-        }
+  {
+    password: newPassword
+  }
 
-      );
+);
 
 
 

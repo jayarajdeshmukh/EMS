@@ -1,447 +1,399 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useEffect,useState } from "react";
+import { useParams,useNavigate } from "react-router-dom";
 
-function ViewEmployee() {
-
-
-  const { id } = useParams();
-
-  const navigate = useNavigate();
-
-
-  const [employee, setEmployee] = useState(null);
+import {
+    getEmployeeById,
+    deleteEmployee
+} from "../../services/employeeService";
 
 
 
-  // Get employee details
-  useEffect(() => {
+function ViewEmployee(){
 
 
-    const getEmployee = async () => {
+    const {id}=useParams();
+
+    const navigate=useNavigate();
 
 
-      try {
+    const [employee,setEmployee]=useState(null);
 
 
-        const response = await axios.get(
-  `https://ems-backend-1-lhsi.onrender.com/employees/${id}`
-);
 
 
-        setEmployee(response.data);
+
+    useEffect(()=>{
+
+        loadEmployee();
+
+    },[]);
 
 
-      } catch (error) {
 
 
-        console.log(error);
+
+    const loadEmployee=async()=>{
 
 
-      }
+        try{
+
+            const data=await getEmployeeById(id);
+
+            setEmployee(data);
+
+
+        }
+        catch(error){
+
+            console.log(error);
+
+        }
+
+    };
+
+
+
+
+
+
+
+    const handleDelete=async()=>{
+
+
+        const confirmDelete =
+        window.confirm(
+            "Are you sure you want to delete?"
+        );
+
+
+
+        if(confirmDelete){
+
+
+            try{
+
+
+                await deleteEmployee(id);
+
+
+                alert(
+                    "Employee Deleted Successfully"
+                );
+
+
+                navigate("/employees");
+
+
+            }
+            catch(error){
+
+                console.log(error);
+
+            }
+
+
+        }
 
 
     };
 
 
 
-    getEmployee();
-
-
-
-  }, [id]);
 
 
 
 
 
-
-  // Delete employee
-  const handleDelete = async () => {
+    if(!employee){
 
 
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this employee?"
-    );
+        return(
 
+            <div className="flex justify-center items-center h-screen">
 
+                <h2 className="text-xl font-semibold">
 
-    if(confirmDelete){
+                    Loading...
 
+                </h2>
 
-      try{
+            </div>
 
-
-        await axios.delete(
-  `https://ems-backend-1-lhsi.onrender.com/employees/${id}`
-);
-
-
-        alert("Employee deleted successfully");
-
-
-
-        navigate("/employees");
-
-
-
-      }
-      catch(error){
-
-
-        console.log(error);
-
-
-      }
-
+        )
 
 
     }
 
 
 
-  };
 
 
 
 
 
+    return(
 
 
-  if(!employee){
+        <div className="min-h-screen bg-gray-100 p-5 md:p-8">
 
 
-    return (
 
-      <div className="flex justify-center items-center min-h-screen">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">
 
-        <h2 className="text-xl font-semibold">
-          Loading...
-        </h2>
+                Employee Details
 
-      </div>
+            </h2>
 
-    );
 
 
-  }
 
 
 
 
+            <div className="
+            max-w-2xl 
+            mx-auto 
+            bg-white 
+            rounded-2xl 
+            shadow-lg 
+            p-6
+            ">
 
 
 
-  return (
+                {/* Profile */}
 
+                <div className="flex justify-center mb-6">
 
-    <div className="
-      min-h-screen 
-      bg-gray-100 
-      flex 
-      justify-center 
-      items-center 
-      p-4 
-      sm:p-6
-    ">
 
+                    <div className="
+                    w-24
+                    h-24
+                    rounded-full
+                    bg-blue-500
+                    flex
+                    items-center
+                    justify-center
+                    text-white
+                    text-4xl
+                    font-bold
+                    ">
 
 
-      <div className="
-        bg-white 
-        shadow-xl 
-        rounded-xl 
-        w-full 
-        max-w-md 
-        sm:max-w-lg 
-        p-5 
-        sm:p-8
-      ">
+                        {employee.name?.charAt(0)}
 
 
+                    </div>
 
 
-        <h2 className="
-          text-2xl 
-          sm:text-3xl 
-          font-bold 
-          text-center 
-          mb-6 
-          text-gray-800
-        ">
+                </div>
 
-          Employee Details
 
-        </h2>
 
 
 
 
 
+                {/* Details */}
 
-        <div className="space-y-4">
 
+                <div className="
+                grid
+                grid-cols-1
+                md:grid-cols-2
+                gap-4
+                ">
 
 
 
+                    <Info
+                    title="Name"
+                    value={employee.name}
+                    />
 
-          <EmployeeInfo
 
-            label="ID"
+                    <Info
+                    title="Job Role"
+                    value={employee.jobRole}
+                    />
 
-            value={employee.id}
 
-          />
+                    <Info
+                    title="Email"
+                    value={employee.email}
+                    />
 
 
+                    <Info
+                    title="Phone"
+                    value={employee.phone}
+                    />
 
 
+                    <div className="md:col-span-2">
 
-          <EmployeeInfo
+                    <Info
+                    title="Address"
+                    value={employee.address}
+                    />
 
-            label="Name"
+                    </div>
 
-            value={employee.name}
 
-          />
 
+                </div>
 
 
 
 
-          <EmployeeInfo
 
-            label="Role"
 
-            value={employee.role}
 
-          />
+                {/* Buttons */}
 
 
+                <div className="
+                flex
+                flex-col
+                md:flex-row
+                gap-4
+                mt-8
+                ">
 
 
 
-          <EmployeeInfo
+                    <button
 
-            label="Email"
+                    onClick={()=>
+                    navigate(`/employees/edit/${id}`)
+                    }
 
-            value={employee.email}
+                    className="
+                    bg-green-500
+                    hover:bg-green-600
+                    text-white
+                    px-6
+                    py-3
+                    rounded-lg
+                    font-semibold
+                    "
 
-          />
+                    >
 
+                    ✏️ Edit
 
+                    </button>
 
 
 
-          <EmployeeInfo
 
-            label="Phone"
 
-            value={employee.phone}
 
-          />
 
+                    <button
 
+                    onClick={handleDelete}
 
+                    className="
+                    bg-red-500
+                    hover:bg-red-600
+                    text-white
+                    px-6
+                    py-3
+                    rounded-lg
+                    font-semibold
+                    "
 
+                    >
 
-          <EmployeeInfo
+                    🗑 Delete
 
-            label="Address"
+                    </button>
 
-            value={employee.address}
 
-          />
 
 
 
+
+
+
+                    <button
+
+                    onClick={()=>
+                    navigate("/employees")
+                    }
+
+                    className="
+                    bg-blue-500
+                    hover:bg-blue-600
+                    text-white
+                    px-6
+                    py-3
+                    rounded-lg
+                    font-semibold
+                    "
+
+                    >
+
+                    ← Back
+
+                    </button>
+
+
+
+                </div>
+
+
+
+
+            </div>
 
 
         </div>
 
 
+    )
+
+
+}
 
 
 
 
 
 
-        {/* Buttons */}
+function Info({title,value}){
+
+
+    return(
 
         <div className="
-          flex 
-          flex-col 
-          sm:flex-row 
-          gap-3 
-          mt-8
+        bg-gray-50
+        p-4
+        rounded-lg
         ">
 
 
+            <p className="text-sm text-gray-500 font-semibold">
 
-          <button
+                {title}
 
-
-            onClick={() =>
-              navigate(`/employees/edit/${id}`)
-            }
+            </p>
 
 
-            className="
-              flex-1
-              bg-yellow-500
-              hover:bg-yellow-600
-              text-white
-              py-2.5
-              rounded-lg
-              transition
-            "
+            <p className="text-gray-800 font-medium break-all">
 
+                {value}
 
-          >
-
-            Edit
-
-
-          </button>
-
-
-
-
-
-
-          <button
-
-
-            onClick={handleDelete}
-
-
-            className="
-              flex-1
-              bg-red-600
-              hover:bg-red-700
-              text-white
-              py-2.5
-              rounded-lg
-              transition
-            "
-
-
-          >
-
-            Delete
-
-
-          </button>
-
-
-
+            </p>
 
 
         </div>
 
-
-
-
-
-
-
-
-        <button
-
-
-          onClick={() =>
-            navigate("/employees")
-          }
-
-
-          className="
-            mt-4
-            w-full
-            bg-blue-600
-            hover:bg-blue-700
-            text-white
-            py-2.5
-            rounded-lg
-            transition
-          "
-
-
-        >
-
-          Back
-
-
-        </button>
-
-
-
-
-
-      </div>
-
-
-
-    </div>
-
-
-
-  );
-
-}
-
-
-
-
-
-
-
-// Reusable Detail Component
-
-function EmployeeInfo({label,value}){
-
-
-  return (
-
-    <div className="
-      flex 
-      flex-col 
-      sm:flex-row 
-      sm:justify-between 
-      gap-2
-      border-b 
-      pb-3
-    ">
-
-
-      <b className="text-gray-700">
-
-        {label}
-
-      </b>
-
-
-
-      <span className="
-        text-gray-600
-        text-sm
-        sm:text-right
-        break-all
-      ">
-
-        {value || "-"}
-
-      </span>
-
-
-
-    </div>
-
-  );
+    )
 
 
 }
-
-
 
 
 

@@ -14,13 +14,17 @@ import {
 } from "react-icons/fa";
 
 
-const Register =()=>{
+const Register = () => {
 
 
 const navigate = useNavigate();
 
 
-const [formData,setFormData]=useState({
+const API = "https://ems-backend-1-lhsi.onrender.com";
+
+
+
+const [formData,setFormData] = useState({
 
 name:"",
 email:"",
@@ -32,13 +36,15 @@ password:""
 });
 
 
-const [message,setMessage]=useState("");
 
-const [showPassword,setShowPassword]=useState(false);
+const [message,setMessage] = useState("");
+
+const [showPassword,setShowPassword] = useState(false);
 
 
 
-const handleChange=(e)=>{
+
+const handleChange = (e)=>{
 
 setFormData({
 
@@ -53,48 +59,110 @@ setFormData({
 
 
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  const { name, email, phone, address, password } = formData;
 
-  if (!name || !email || !phone || !address || !password) {
-    setMessage("All fields are required");
-    return;
-  }
+const handleSubmit = async(e)=>{
 
-  try {
 
-    // Check existing users
-    const response = await axios.get(
-      "https://ems-backend-1-lhsi.onrender.com/users"
-    );
+e.preventDefault();
 
-    const existingUser = response.data.find(
-      (user) => user.email === email
-    );
 
-    if (existingUser) {
-      setMessage("Account already exists");
-      return;
-    }
 
-    // Save new user
-    await axios.post(
-      "https://ems-backend-1-lhsi.onrender.com/users",
-      formData
-    );
+const {
+name,
+email,
+phone,
+address,
+password
+}=formData;
 
-    setMessage("Account created successfully");
 
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
 
-  } catch (error) {
-    console.log(error);
-    setMessage("Server error");
-  }
+if(!name || !email || !phone || !address || !password){
+
+setMessage("All fields are required");
+
+return;
+
+}
+
+
+
+
+try{
+
+
+// Check existing email
+
+const usersResponse = await axios.get(
+`${API}/person/all`
+);
+
+
+
+const existingUser = usersResponse.data.find(
+
+(user)=>user.email === email
+
+);
+
+
+
+if(existingUser){
+
+setMessage("Account already exists");
+
+return;
+
+}
+
+
+
+
+// Create account
+
+await axios.post(
+
+`${API}/person/save`,
+
+formData
+
+);
+
+
+
+setMessage(
+"Account created successfully"
+);
+
+
+
+setTimeout(()=>{
+
+navigate("/");
+
+},1500);
+
+
+
+}
+
+catch(error){
+
+
+console.log(error.response);
+
+
+
+setMessage(
+"Registration failed"
+);
+
+
+}
+
+
+
 };
 
 
@@ -114,25 +182,16 @@ min-h-screen
 flex
 items-center
 justify-center
-
 bg-gray-100
-
 dark:bg-gray-950
-
 px-4
 py-10
-
 relative
 overflow-hidden
 "
 
 >
 
-
-
-
-
-{/* Background */}
 
 <div
 
@@ -172,50 +231,27 @@ right-0
 
 
 
-
-
-
-
-{/* Card */}
-
 <div
 
 className="
 relative
-
 w-full
 max-w-lg
-
 bg-white/80
-
 dark:bg-gray-900/80
-
 backdrop-blur-xl
-
 border
-
 border-gray-200
-
 dark:border-gray-700
-
 rounded-2xl
-
 shadow-2xl
-
 p-6
 sm:p-8
-
 "
 
 >
 
 
-
-
-
-
-
-{/* Logo */}
 
 
 <div className="
@@ -230,23 +266,14 @@ mb-6
 className="
 h-20
 w-20
-
 rounded-2xl
-
 bg-gradient-to-r
-
 from-blue-600
-
 to-indigo-600
-
 flex
-
 items-center
-
 justify-center
-
 shadow-lg
-
 "
 
 >
@@ -272,20 +299,14 @@ text-4xl
 
 
 
-
 <h1
 
 className="
 text-3xl
-
 font-bold
-
 text-center
-
 text-gray-800
-
 dark:text-white
-
 "
 
 >
@@ -296,18 +317,15 @@ Create Account
 
 
 
+
 <p
 
 className="
 text-center
-
 text-gray-500
-
 dark:text-gray-400
-
 mt-2
 mb-7
-
 "
 
 >
@@ -320,12 +338,6 @@ Join Employee Management System
 
 
 
-
-
-
-
-
-{/* Input Component */}
 
 
 {
@@ -360,6 +372,7 @@ placeholder:"Address",
 type:"text"
 }
 
+
 ].map((field,index)=>(
 
 
@@ -381,9 +394,7 @@ className="
 absolute
 left-4
 top-4
-
 text-gray-400
-
 "
 
 >
@@ -396,65 +407,39 @@ text-gray-400
 
 <input
 
-
 name={field.name}
 
 type={field.type}
 
 placeholder={field.placeholder}
 
-
 value={formData[field.name]}
-
 
 onChange={handleChange}
 
 
-
 className="
 w-full
-
 pl-12
-
 py-3
-
 rounded-xl
-
 bg-gray-50
-
 dark:bg-gray-800
-
-
 border
-
 border-gray-300
-
 dark:border-gray-700
-
-
 text-gray-800
-
 dark:text-white
-
-
 outline-none
-
 focus:ring-2
-
 focus:ring-blue-500
-
 transition
-
 "
-
-
-
 
 />
 
 
 </div>
-
 
 
 ))
@@ -464,13 +449,6 @@ transition
 
 
 
-
-
-
-
-
-
-{/* Department */}
 
 
 <select
@@ -484,63 +462,29 @@ onChange={handleChange}
 
 className="
 w-full
-
 mb-4
-
 px-4
-
 py-3
-
 rounded-xl
-
-
 bg-gray-50
-
 dark:bg-gray-800
-
-
 border
-
 border-gray-300
-
 dark:border-gray-700
-
-
 text-gray-800
-
 dark:text-white
-
-
 outline-none
-
 focus:ring-2
-
 focus:ring-blue-500
-
 "
 
 >
 
 
-<option>
-IT
-</option>
-
-
-<option>
-HR
-</option>
-
-
-<option>
-Finance
-</option>
-
-
-<option>
-Sales
-</option>
-
+<option>IT</option>
+<option>HR</option>
+<option>Finance</option>
+<option>Sales</option>
 
 
 </select>
@@ -549,11 +493,6 @@ Sales
 
 
 
-
-
-
-
-{/* Password */}
 
 
 <div
@@ -570,13 +509,9 @@ mb-5
 
 className="
 absolute
-
 left-4
-
 top-4
-
 text-gray-400
-
 "
 
 />
@@ -586,32 +521,21 @@ text-gray-400
 
 <input
 
-
 name="password"
 
-
 type={
-
 showPassword
-
 ?
-
 "text"
-
 :
-
 "password"
-
 }
-
 
 
 placeholder="Password"
 
 
-
 value={formData.password}
-
 
 
 onChange={handleChange}
@@ -620,90 +544,50 @@ onChange={handleChange}
 
 className="
 w-full
-
 pl-12
-
 pr-12
-
 py-3
-
-
 rounded-xl
-
-
 bg-gray-50
-
-
 dark:bg-gray-800
-
-
-
 border
-
 border-gray-300
-
 dark:border-gray-700
-
-
 text-gray-800
-
 dark:text-white
-
-
-
 outline-none
-
-
 focus:ring-2
-
 focus:ring-blue-500
-
 "
 
- />
-
+/>
 
 
 
 
 <button
 
-
 type="button"
-
 
 onClick={()=>setShowPassword(!showPassword)}
 
 
 className="
 absolute
-
 right-4
-
 top-4
-
 text-gray-400
-
-hover:scale-110
-
-transition
-
 "
 
 >
 
+
 {
-
 showPassword
-
 ?
-
 <FaEyeSlash/>
-
 :
-
 <FaEye/>
-
 }
 
 
@@ -719,47 +603,27 @@ showPassword
 
 
 
-
-
-{/* Button */}
-
-
 <button
 
+
+type="submit"
 
 onClick={handleSubmit}
 
 
 className="
 w-full
-
 py-3
-
 rounded-xl
-
-
 bg-gradient-to-r
-
 from-blue-600
-
 to-indigo-600
-
-
 text-white
-
 font-semibold
-
-
 shadow-lg
-
-
 hover:scale-[1.02]
-
-
 transition
-
 duration-300
-
 "
 
 >
@@ -775,10 +639,6 @@ Create Account
 
 
 
-
-{/* Message */}
-
-
 {
 
 message &&
@@ -789,21 +649,13 @@ className={`
 text-center
 mt-4
 font-medium
-
 ${
-
 message.includes("success")
-
 ?
-
 "text-green-600"
-
 :
-
 "text-red-500"
-
 }
-
 `}
 
 >
@@ -821,23 +673,14 @@ message.includes("success")
 
 
 
-
-{/* Login Link */}
-
-
 <p
 
 className="
 text-center
-
 mt-7
-
 text-gray-600
-
 dark:text-gray-300
-
 text-sm
-
 "
 
 >
@@ -848,21 +691,15 @@ Already have an account?
 
 <span
 
-
 onClick={()=>navigate("/")}
 
 
 className="
 ml-2
-
 text-blue-600
-
 font-semibold
-
 cursor-pointer
-
 hover:underline
-
 "
 
 >
@@ -873,7 +710,6 @@ Sign In
 
 
 </p>
-
 
 
 
@@ -889,7 +725,6 @@ Sign In
 
 
 };
-
 
 
 export default Register;

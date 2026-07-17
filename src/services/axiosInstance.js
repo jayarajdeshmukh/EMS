@@ -1,7 +1,11 @@
 import axios from "axios";
 
+
 const api = axios.create({
-  baseURL: "https://ems-backend-1-lhsi.onrender.com",
+
+    baseURL:"http://localhost:8081",
+
 });
+
 
 export default api;
